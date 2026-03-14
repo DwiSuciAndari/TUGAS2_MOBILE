@@ -8,9 +8,8 @@ class TotalPage extends StatefulWidget {
 }
 
 class _TotalPageState extends State<TotalPage> {
-
   TextEditingController angkaController = TextEditingController();
-  String hasil = "";
+  String hasil = "-";
 
   void hitungTotal() {
     String angka = angkaController.text;
@@ -21,67 +20,121 @@ class _TotalPageState extends State<TotalPage> {
       });
     } else {
       setState(() {
-        hasil = "Jumlah angka: ${angka.length}";
+        hasil = angka.length.toString();
       });
     }
+  }
+
+  Widget inputField() {
+    return TextField(
+      controller: angkaController,
+      keyboardType: TextInputType.number,
+
+      decoration: InputDecoration(
+        hintText: "Masukkan angka (contoh: 21345)",
+        filled: true,
+        fillColor: Colors.grey.shade100,
+
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xfff5f5f5),
+
       appBar: AppBar(
-        title: const Text("Total Angka"),
-        backgroundColor: Colors.pink,
+        backgroundColor: const Color(0xffe63b8f),
+        centerTitle: true,
+        title: const Text(
+          "Total Angka",
+          style: TextStyle(fontFamily: "Audiowide", color: Colors.white),
+        ),
       ),
 
-      backgroundColor: const Color(0xffFCE4EC),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
 
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+          child: Container(
+            padding: const EdgeInsets.all(20),
 
-        child: Column(
-          children: [
-
-            TextField(
-              controller: angkaController,
-              keyboardType: TextInputType.number,
-
-              decoration: InputDecoration(
-                labelText: "Masukkan angka (contoh: 21345)",
-                filled: true,
-                fillColor: Colors.white,
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(2, 4),
                 ),
-              ),
+              ],
             ),
 
-            const SizedBox(height: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
 
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pinkAccent,
-              ),
+              children: [
+                inputField(),
 
-              onPressed: hitungTotal,
+                const SizedBox(height: 25),
 
-              child: const Text(
-                "Hitung",
-                style: TextStyle(color: Colors.white),
-              ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffe63b8f),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+
+                  onPressed: hitungTotal,
+
+                  child: const Text("Hitung", style: TextStyle(fontSize: 16)),
+                ),
+
+                const SizedBox(height: 30),
+
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(15),
+
+                  decoration: BoxDecoration(
+                    color: const Color(0xfffce4ec),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Total Angka",
+                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                      ),
+
+                      const SizedBox(height: 5),
+
+                      Text(
+                        hasil,
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffe63b8f),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-
-            const SizedBox(height: 20),
-
-            Text(
-              hasil,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

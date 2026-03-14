@@ -9,81 +9,55 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final users = {
-    "Cece": "011",
-    "Celsi": "015",
-    "Alma": "101",
-    "Suci": "192"
-  };
+  final users = {"Cece": "011", "Celsi": "015", "Alma": "101", "Suci": "192"};
 
   void login() {
+    String user = usernameController.text.trim();
+    String pass = passwordController.text.trim();
 
-    String user = usernameController.text;
-    String pass = passwordController.text;
-
-    if (users[user] == pass) {
-
+    if (users.containsKey(user) && users[user] == pass) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const MenuPage()),
       );
-
     } else {
-
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Username atau Password salah")),
       );
-
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
-      backgroundColor: const Color(0xfff2f2f2),
+      backgroundColor: const Color(0xfff8f8f8),
 
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 35),
 
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
 
             children: [
-
               const Text(
-                "Login",
+                "LOGIN",
                 style: TextStyle(
                   fontFamily: "Audiowide",
-                  fontSize: 42,
+                  fontSize: 40,
                   color: Color(0xffe63b8f),
                 ),
               ),
 
-              const SizedBox(height: 5),
-          const Text(
-                "Tugas Kelompok Pemrograman",
-                style: TextStyle(
-                  fontFamily: "Audiowide",
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
+              const SizedBox(height: 8),
 
               const Text(
-                "MOBILE IF-B",
-                style: TextStyle(
-                  fontFamily: "Audiowide",
-                  fontSize: 14,
-                  color: Color.fromARGB(255, 0, 188, 212),
-                ),
+                "Tugas Pemrograman Mobile",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
 
               const SizedBox(height: 40),
@@ -94,13 +68,11 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   hintText: "Username",
 
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  filled: true,
+                  fillColor: Colors.white,
 
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(color: Colors.cyan),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
@@ -114,44 +86,37 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   hintText: "Password",
 
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  filled: true,
+                  fillColor: Colors.white,
 
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(color: Colors.cyan),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 35),
+              const SizedBox(height: 30),
 
               SizedBox(
                 width: double.infinity,
                 height: 50,
 
                 child: ElevatedButton(
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffe63b8f),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
 
                   onPressed: login,
 
                   child: const Text(
-                    "Login",
-                    style: TextStyle(
-                      fontFamily: "Audiowide",
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                    "LOGIN",
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

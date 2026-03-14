@@ -14,14 +14,12 @@ class _StopwatchPageState extends State<StopwatchPage> {
   Timer? timer;
 
   void start() {
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        setState(() {
-          seconds++;
-        });
-      },
-    );
+    timer?.cancel();
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        seconds++;
+      });
+    });
   }
 
   void stop() {
@@ -39,47 +37,107 @@ class _StopwatchPageState extends State<StopwatchPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: const Color(0xfff5f5f5),
+
       appBar: AppBar(
-        title: const Text("Stopwatch"),
+        backgroundColor: const Color(0xffe63b8f),
+        centerTitle: true,
+        title: const Text(
+          "Stopwatch",
+          style: TextStyle(fontFamily: "Audiowide", color: Colors.white),
+        ),
       ),
 
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        child: Padding(
+          padding: const EdgeInsets.all(20),
 
-            Text(
-              "$seconds detik",
-              style: const TextStyle(fontSize: 40),
-            ),
+          child: Container(
+            padding: const EdgeInsets.all(30),
 
-            const SizedBox(height: 30),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                ElevatedButton(
-                  onPressed: start,
-                  child: const Text("Start"),
-                ),
-
-                const SizedBox(width: 10),
-
-                ElevatedButton(
-                  onPressed: stop,
-                  child: const Text("Stop"),
-                ),
-
-                const SizedBox(width: 10),
-
-                ElevatedButton(
-                  onPressed: reset,
-                  child: const Text("Reset"),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(2, 4),
                 ),
               ],
-            )
-          ],
+            ),
+
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.timer, size: 60, color: Color(0xffe63b8f)),
+
+                const SizedBox(height: 20),
+
+                Text(
+                  "$seconds detik",
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffe63b8f),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffe63b8f),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 12,
+                        ),
+                      ),
+                      onPressed: start,
+                      child: const Text("Start"),
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffe63b8f),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 12,
+                        ),
+                      ),
+                      onPressed: stop,
+                      child: const Text("Stop"),
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffe63b8f),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 12,
+                        ),
+                      ),
+                      onPressed: reset,
+                      child: const Text("Reset"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

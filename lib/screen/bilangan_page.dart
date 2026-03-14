@@ -8,13 +8,12 @@ class BilanganPage extends StatefulWidget {
 }
 
 class _BilanganPageState extends State<BilanganPage> {
-
   final angka = TextEditingController();
-  String hasil = "";
+  String hasil = "-";
 
   bool isPrima(int n) {
     if (n < 2) return false;
-    for (int i = 2; i < n; i++) {
+    for (int i = 2; i * i <= n; i++) {
       if (n % i == 0) return false;
     }
     return true;
@@ -23,32 +22,123 @@ class _BilanganPageState extends State<BilanganPage> {
   void cek() {
     int n = int.parse(angka.text);
 
-    if (isPrima(n)) {
-      hasil = "Bilangan Prima";
-    } else if (n % 2 == 0) {
-      hasil = "Bilangan Genap";
-    } else {
-      hasil = "Bilangan Ganjil";
-    }
+    setState(() {
+      if (isPrima(n)) {
+        hasil = "Bilangan Prima";
+      } else if (n % 2 == 0) {
+        hasil = "Bilangan Genap";
+      } else {
+        hasil = "Bilangan Ganjil";
+      }
+    });
+  }
 
-    setState(() {});
+  Widget inputField() {
+    return TextField(
+      controller: angka,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        hintText: "Masukkan Angka",
+        filled: true,
+        fillColor: Colors.grey.shade100,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Bilangan")),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
+      backgroundColor: const Color(0xfff5f5f5),
 
-            TextField(controller: angka, decoration: const InputDecoration(labelText: "Masukkan angka")),
+      appBar: AppBar(
+        backgroundColor: const Color(0xffe63b8f),
+        centerTitle: true,
+        title: const Text(
+          "Bilangan",
+          style: TextStyle(fontFamily: "Audiowide", color: Colors.white),
+        ),
+      ),
 
-            ElevatedButton(onPressed: cek, child: const Text("Cek")),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
 
-            Text(hasil),
-          ],
+          child: Container(
+            padding: const EdgeInsets.all(20),
+
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(2, 4),
+                ),
+              ],
+            ),
+
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+
+              children: [
+                inputField(),
+
+                const SizedBox(height: 25),
+
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffe63b8f),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: cek,
+                  child: const Text("Cek", style: TextStyle(fontSize: 16)),
+                ),
+
+                const SizedBox(height: 30),
+
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(15),
+
+                  decoration: BoxDecoration(
+                    color: const Color(0xfffce4ec),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Hasil",
+                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                      ),
+
+                      const SizedBox(height: 5),
+
+                      Text(
+                        hasil,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffe63b8f),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
