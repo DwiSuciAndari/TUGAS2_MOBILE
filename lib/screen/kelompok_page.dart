@@ -3,21 +3,40 @@ import 'package:flutter/material.dart';
 class KelompokPage extends StatelessWidget {
   const KelompokPage({super.key});
 
-  Widget anggota(String nama) {
+  Widget anggota(String nama, String nim) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+      ),
       child: Row(
         children: [
           const CircleAvatar(
             backgroundColor: Color(0xffe63b8f),
             child: Icon(Icons.person, color: Colors.white),
           ),
-
           const SizedBox(width: 12),
 
-          Text(
-            nama,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  nama,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 2), 
+                Text(
+                  nim,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -63,16 +82,16 @@ class KelompokPage extends StatelessWidget {
 
               children: [
                 const Text(
-                  "Nama Kelompok",
+                  "Anggota Kelompok",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 20),
 
-                anggota("Cendikia Permata Dewanti"),
-                anggota("Celsi Fransisca Sitompul"),
-                anggota("Alma Wulan Saptaningrum"),
-                anggota("Dwi Suci Andari"),
+                anggota("Cendikia Permata Dewanti", "123230011"),
+                anggota("Celsi Fransisca Sitompul", "123230015"),
+                anggota("Alma Wulan Saptaningrum", "123230101"),
+                anggota("Dwi Suci Andari", "123230192"),
 
                 const SizedBox(height: 25),
 
@@ -88,7 +107,7 @@ class KelompokPage extends StatelessWidget {
                 const SizedBox(height: 5),
 
                 const Text(
-                  "Pemrograman Dart",
+                  "Teknologi Dan Pemrograman Mobile (IF-B)",
                   style: TextStyle(fontSize: 15, color: Colors.black87),
                 ),
               ],
